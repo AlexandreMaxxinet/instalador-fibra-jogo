@@ -2,11 +2,16 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-let tecnico = { x: 50, y: 300, width: 40, height: 50, vy: 0, jumping: false };
+let tecnico = {
+    x: 50, y: 300, width: 60, height: 60, vy: 0, jumping: false,
+    img: new Image()
+};
+tecnico.img.src = "tecnico.png";
+
 let obstacles = [];
 let score = 0;
-let gameSpeed = 3;
-let gravity = 1.5;
+let gameSpeed = 4;
+let gravity = 1.2;
 let fireEventTimer = 0;
 let fireActive = false;
 let fireDelay = 0;
@@ -28,7 +33,7 @@ function restartGame() {
 }
 
 function shareGame() {
-    const msg = "Eu sou o melhor técnico da MAXXINET! Consegui instalar fibra óptica pulando cachorros e postes! 💥🚀";
+    const msg = "Joguei o Instalador de Internet da MAXXINET! Pulei postes e cachorros conectando fibra! 🚀💥";
     const url = "https://wa.me/?text=" + encodeURIComponent(msg);
     window.open(url, "_blank");
 }
@@ -47,33 +52,33 @@ document.addEventListener("keydown", function (e) {
 });
 
 function spawnObstacle() {
+    const type = Math.random() < 0.5 ? "poste" : "cachorro";
+    const img = new Image();
+    img.src = type === "poste" ? "poste.png" : "cachorro.png";
     const obstacle = {
         x: canvas.width,
         y: 320,
-        width: Math.random() < 0.5 ? 40 : 30,
-        height: Math.random() < 0.5 ? 50 : 30,
-        type: Math.random() < 0.5 ? "poste" : "cachorro"
+        width: 50,
+        height: 50,
+        type: type,
+        img: img
     };
     obstacles.push(obstacle);
-    if (obstacle.type === "cachorro") barkSound.play();
+    if (type === "cachorro") barkSound.play();
 }
 
 function drawTecnico() {
-    ctx.fillStyle = "#0033AA";
-    ctx.fillRect(tecnico.x, tecnico.y, tecnico.width, tecnico.height);
-    ctx.fillStyle = "#FFD700";
-    ctx.fillRect(tecnico.x, tecnico.y + 40, tecnico.width, 10);
+    ctx.drawImage(tecnico.img, tecnico.x, tecnico.y, tecnico.width, tecnico.height);
 }
 
 function drawObstacle(obstacle) {
-    ctx.fillStyle = obstacle.type === "poste" ? "#964B00" : "#555";
-    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+    ctx.drawImage(obstacle.img, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 }
 
 function drawFireEvent() {
     ctx.fillStyle = "red";
     ctx.font = "20px Arial";
-    ctx.fillText("Poste em chamas! Aguardando companhia elétrica...", 100, 100);
+    ctx.fillText("🔥 Poste pegando fogo! Aguardando companhia elétrica...", 100, 100);
     ctx.fillStyle = "#000";
     ctx.fillRect(600, 320, 80, 40);
     ctx.fillStyle = "#FFF";
