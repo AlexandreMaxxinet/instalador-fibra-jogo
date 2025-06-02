@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Instalador de Internet Fibra Óptica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        canvas {
+            background: #87CEEB;
+            display: block;
+            margin: 10px auto;
+            border: 3px solid #000;
+            width: 95vw;
+            height: 60vh;
+        }
+        #controls {
+            margin-top: 10px;
+        }
+        button {
+            padding: 14px 28px;
+            font-size: 18px;
+            margin: 8px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h2>🚀 Instalador de Internet Fibra Óptica</h2>
+    <img src="logo_maxxinet.png" alt="MAXXINET Logo" width="180">
+    <div id="controls">
+        <button onclick="startGame()">▶ Início</button>
+        <button onclick="restartGame()">🔁 Reiniciar</button>
+        <button onclick="shareGame()">📤 Compartilhar</button>
+    </div>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+    <p>📱 Toque na tela para pular os obstáculos!</p>
+    <script src="game.js"></script>
+</body>
+</html>
